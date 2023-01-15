@@ -7,7 +7,7 @@ import { RiFlag2Line } from "react-icons/ri";
 import { IoGameControllerOutline } from "react-icons/io5";
 import { useSession, signOut } from "next-auth/react";
 const Header = () => {
-  // const { data: session, status } = useSession();
+  const { data: session, status } = useSession();
   return (
     <div className="sticky z-50 flex h-16 bg-white items-center p-2 shadow-md top-0">
       {/* Left */}
@@ -56,16 +56,16 @@ const Header = () => {
 
       {/* Right */}
       <div className="flex items-center space-x-2 justify-end min-w-fit">
-        {/* <Image
+        <Image
           src={session?.user.image}
           height={40}
           width={40}
           onClick={signOut}
           className="rounded-full cursor-pointer"
-        /> */}
-        {/* <p className="hidden xl:inline-flex font-semibold text-sm whitespace-nowrap p-3 max-w-xs">
+        />
+        <p className="hidden xl:inline-flex font-semibold text-sm whitespace-nowrap p-3 max-w-xs">
           {session?.user.name.split(" ")[0]}
-        </p> */}
+        </p>
         <CgMenuGridO
           size={20}
           className=" hidden lg:inline-flex h-10 w-10 bg-gray-200 text-gray-600 rounded-full p-2 cursor-pointer hover:bg-gray-300"
