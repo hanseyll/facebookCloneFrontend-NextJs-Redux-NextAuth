@@ -10,8 +10,45 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 
 const CreatePost = ()=>{
+    const FACEBOOK_CLONE_URL_ENDPOINT="";
 const { data: session, status } = useSession();
-    
+const inputRef = useRef(null);
+const hiddenFileInput = useRef(null);
+const handleClick = () =>{
+    hiddenFileInput.current.click();
+}
+const [imageToPost,setImageToPost] = useState(null);
+const addImageToPost = (e) => {
+    const reader = new FileReader();
+    if(e.target.files[0]){
+        reader.readAsDataURL(e.target.files[0]);
+        reader.onload = (e)=> {
+            setImageToPost(e.target.result);
+        }
+    }
+}
+const handleSubmit = (e) =>{
+    e.preventDefault();
+    if(!inputRef.current.value) return;
+    const formData = new FormData();
+    formData.append("file", imageToPost);
+    formData.append("post", inputRef.current.value);
+    formData.append("user", session?.user.name);
+    formData.append("email", session?.user.email);
+    formData.append("profilePic", session?.user.image);
+
+    axios.post(FACEBOOK_CLONE_URL_ENDPOINT, formData, {
+        headers: {Accept : "application/json"},
+    }).then((response)=>{
+        inputRef.current.value="";
+        removeImage();
+    }).catch((error) =>{
+        console.log(error)
+    })
+}
+const removeImage = () =>{
+    setImageToPost(null)
+}
     return (
 <div className="bg-white rounded-md shadow-md text-gray-500 p-2 divide-y">
       <div className="flex p-4 space-x-2 items-center">
