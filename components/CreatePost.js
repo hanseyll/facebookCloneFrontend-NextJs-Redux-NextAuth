@@ -6,12 +6,13 @@ import { BsEmojiSmile } from "react-icons/bs";
 import { useSession } from "next-auth/react";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import axios from "axios";
-// import { addPost, selectPost } from "../public/src/features/postSlice";
+import { addPost, selectPost } from "../public/src/features/postSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 const CreatePost = ()=>{
     const FACEBOOK_CLONE_URL_ENDPOINT="";
 const { data: session, status } = useSession();
+const dispatch = useDispatch();
 const inputRef = useRef(null);
 const hiddenFileInput = useRef(null);
 const handleClick = () =>{
@@ -41,6 +42,7 @@ const handleSubmit = (e) =>{
         headers: {Accept : "application/json"},
     }).then((response)=>{
         inputRef.current.value="";
+        dispatch(addPost(response.data))
         removeImage();
     }).catch((error) =>{
         console.log(error)

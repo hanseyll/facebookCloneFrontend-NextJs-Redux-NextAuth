@@ -1,6 +1,6 @@
 import React from "react";
 import CreatePost from "./CreatePost";
-// import Posts from "./Posts";
+import Posts from "./Posts";
 
 
 const Feed = () => {
@@ -10,7 +10,7 @@ const Feed = () => {
         {/* Create Box */}
         <CreatePost />
         {/* Posts */}
-        {/* <Posts /> */}
+        <Posts />
       </div>
     </div>
   );
